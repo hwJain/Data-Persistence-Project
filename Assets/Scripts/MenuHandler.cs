@@ -8,10 +8,11 @@ using TMPro;
 public class MenuHandler : MonoBehaviour
 {
     public TMP_InputField InputName;
+    public TextMeshProUGUI bestScore;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        AssignTheBestScore();
     }
 
     // Update is called once per frame
@@ -42,5 +43,9 @@ public class MenuHandler : MonoBehaviour
             SaveData.Instance.playerName = playerName;
             Debug.Log("Player name set to: " + playerName);
         }
+    }
+    public void AssignTheBestScore()
+    {
+        bestScore.text= $"{SaveData.Instance.playerName} - Score: {SaveData.Instance.bestScores}";
     }
 }

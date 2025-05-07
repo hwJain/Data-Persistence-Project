@@ -15,6 +15,7 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text ScoreText2;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -31,6 +32,7 @@ public class MainManager : MonoBehaviour
 
     void Start()
     {
+        ScoreText2.text= $"{SaveData.Instance.playerName} - Score: {SaveData.Instance.bestScores}";
         ScoreText.text = $"{SaveData.Instance.playerName} - Score: 0";
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
@@ -82,6 +84,13 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+
+        if (m_Points > SaveData.Instance.bestScores)
+        {
+            SaveData.Instance.bestScores = m_Points;
+            SaveData.Instance.playerName = SaveData.Instance.playerName; // already set from menu
+            SaveData.Instance.SaveTheData();
+        }
     }
     public void MenuButton()
     {
